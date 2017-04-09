@@ -1,22 +1,12 @@
 import 'normalize.css/normalize.css';
 import 'assets/stylesheets/main.css';
-import { createStore } from 'redux';
+import { fetchRecipes } from './actions/recipes';
+import store from 'store';
+import loadUI from 'ui/jquery/index';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'INC':
-      return state + 1;
-  }
+loadUI();
 
-  return state;
-};
+store.dispatch(fetchRecipes());
 
-const initialState = 0;
+window.store = store;
 
-const store = createStore(reducer, initialState);
-
-store.subscribe(() => document.getElementById('counter').innerText = store.getState());
-
-setInterval(() => store.dispatch({ type: 'INC' }), 500);
-
-console.log("Redux started");
